@@ -1,0 +1,57 @@
+/*
+ * controle.c
+ *
+ *  Created on: 31 de mai de 2019
+ *      Author: luis_
+ */
+#include "controle.h"
+#include "gpio.h"
+#include "adc.h"
+#include "drive_TB66.h"
+
+
+void posicao(void){
+	float m;
+	float d;
+	m = ((4*(adc_valor[7]-adc_valor[0]))+(3*(adc_valor[6]-adc_valor[1]))+(2*(adc_valor[5]-adc_valor[2]))+(1*(adc_valor[4]-adc_valor[3])));
+	d = (adc_valor[0]+adc_valor[1]+adc_valor[2]+adc_valor[3]+adc_valor[4]+adc_valor[5]+adc_valor[6]+adc_valor[7]+2500);
+	valor_posicao = - m/d;
+}
+
+
+void moving_avarege(void){
+	int vals[N];
+    int i;
+    float sum = 0;
+    valor_posicao_filtrado = 0;
+    valor_posicao_filtrado_antigo = 0;
+
+    for(i=N;i>0;i--){
+
+        vals[i] = vals[i-1];
+
+    }
+
+    vals[0] = valor_posicao;
+
+    for(i= 0; i < N; i++){
+
+        sum += vals[i];
+    }
+
+    valor_posicao_filtrado = sum/N;
+    valor_posicao_filtrado_antigo = valor_posicao_filtrado;
+
+}
+
+
+
+void PID(void){
+
+	P  = valor_posicao;
+	D  = (valor_posicao_filtrado - valor_posicao_filtrado_antigo);
+	I += (valor_posicao_filtrado);
+	PID_valor= (Kp*P)+(Kd*D)+(Ki*I);
+
+}
+

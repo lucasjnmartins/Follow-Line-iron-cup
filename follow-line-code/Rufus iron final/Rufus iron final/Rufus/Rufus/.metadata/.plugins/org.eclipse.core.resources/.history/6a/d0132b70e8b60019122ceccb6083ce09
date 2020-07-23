@@ -1,0 +1,22 @@
+/*
+ * Drive_TB66.h
+ *
+ *  Created on: 31 de mai de 2019
+ *      Author: luis_
+ */
+
+#ifndef STM32F0XX_HAL_DRIVER_INC_DRIVE_TB66_H_
+#define STM32F0XX_HAL_DRIVER_INC_DRIVE_TB66_H_
+void config_motor(void);
+
+int velocidade_motor1(volatile uint32_t velocidade1);
+int velocidade_motor2(volatile uint32_t velocidade2);
+void motor1_frente(void);
+void motor1_tras(void);
+void motor1_freio(void);
+
+
+void motor2_frente(void);
+void motor2_tras(void);
+void motor2_freio(void);
+#endif /* STM32F0XX_HAL_DRIVER_INC_DRIVE_TB66_H_ */

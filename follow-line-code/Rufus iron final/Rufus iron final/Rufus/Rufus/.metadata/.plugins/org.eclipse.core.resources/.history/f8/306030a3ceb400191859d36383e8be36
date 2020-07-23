@@ -1,0 +1,41 @@
+/*
+ * Bluetooth.h
+ *
+ *  Created on: 31 de jul de 2019
+ *      Author: luis_
+ */
+
+#ifndef BLUETOOTH_H_
+#define BLUETOOTH_H_
+
+#define Pacote_variaveis 9
+
+uint8_t rx_endereco [Pacote_variaveis] = {0};
+
+typedef enum rx_pacote_endereco {
+    RX_Pacote_Comeco_I = 0,
+    RX_Pacote_Start_I,
+	RX_Pacote_Direita_I,
+	RX_Pacote_Encoder_I,
+	RX_Pacote_velocidade_inicial_I,
+	RX_Pacote_Kp_I,
+	RX_Pacote_Kd_I,
+	RX_Pacote_Ki_I,
+    RX_Pacote_fim_I,
+} rx_pacote_endereco_t;
+
+typedef enum rx_pacote_byte {
+    RX_Pacote_comeco = 0xFF,
+    RX_Pacote_fim = 0xFE,
+} rx_pacote_byte_t;
+
+
+typedef enum rx_pacote_estado {
+    RX_STATUS_ERRO = 0,
+    RX_STATUS_Sucesso = 1,
+} rx_pacote_estado_t;
+
+
+void serial_init(void);
+
+#endif /* BLUETOOTH_H_ */

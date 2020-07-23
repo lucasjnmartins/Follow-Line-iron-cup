@@ -1,0 +1,25 @@
+/*
+ * controle.h
+ *
+ *  Created on: 31 de mai de 2019
+ *      Author: luis_
+ */
+
+#ifndef CONTROLE_H_
+#define CONTROLE_H_
+
+//velocidade 40, kp 16, kd 2,ki 0.2
+#define Kp 20 //valores do coeficiente proporcional (Kp) 16
+#define Kd 2//valores do coeficiente derivativo (Kd) 2
+#define Ki 0.2 //valores do coeficiente integrativo (Ki) 0.1
+
+int P,D,I;
+int PID_valor;
+
+int valor_posicao;
+int valor_posicao_anterior;
+void posicao(void);
+void PID(void);
+int valor();
+
+#endif /* CONTROLE_H_ */

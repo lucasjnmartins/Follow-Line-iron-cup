@@ -1,0 +1,20 @@
+/*
+ * Bluetooth.c
+ *
+ *  Created on: 31 de jul de 2019
+ *      Author: luis_
+ */
+#include <main.h>
+#include <Bluetooth.h>
+#include <usart.h>
+#include <dma.h>
+
+uint8_t rx_endereco [Pacote_variaveis] = {0};
+rx_pacote_estado_t  pacote_estado = RX_STATUS_ERRO;
+
+void serial_init(void) {
+    MX_DMA_Init();
+    MX_USART1_UART_Init();
+    HAL_UART_Receive_DMA(&huart1, rx_endereco, Pacote_variaveis);
+}
+

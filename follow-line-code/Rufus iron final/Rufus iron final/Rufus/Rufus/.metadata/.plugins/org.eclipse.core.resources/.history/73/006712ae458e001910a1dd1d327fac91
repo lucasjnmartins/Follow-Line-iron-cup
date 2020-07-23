@@ -1,0 +1,24 @@
+/*
+ * controle.h
+ *
+ *  Created on: 31 de mai de 2019
+ *      Author: luis_
+ */
+
+#ifndef CONTROLE_H_
+#define CONTROLE_H_
+
+#define Kp 300 //valores do coeficiente proporcional (Kp)
+#define Kd 2 //valores do coeficiente derivativo (Kd)
+#define Ki 0 //valores do coeficiente integrativo (Ki)
+
+int P,D,I;
+int PID_valor;
+
+int valor_posicao;
+int valor_posicao_anterior;
+void posicao(void);
+void PID(void);
+int valor();
+
+#endif /* CONTROLE_H_ */

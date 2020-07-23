@@ -1,0 +1,118 @@
+/*
+ * controle.c
+ *
+ *  Created on: 31 de mai de 2019
+ *      Author: luis_
+ */
+#include "controle.h"
+#include "gpio.h"
+#include "adc.h"
+#include "scanner.h"
+#include "drive_TB66.h"
+
+
+
+
+void posicao(void){
+	float m;
+	float d;
+	valor_posicao_anterior = valor_posicao;
+	/*if((sensor[3].valor<sensor[3].valor_linha_branca)&(sensor[4].valor<sensor[4].valor_linha_branca)){
+		valor_posicao=0;
+		HAL_GPIO_WritePin(Led_esq_GPIO_Port,Led_esq_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(Led_Frente_GPIO_Port,Led_Frente_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(Led_dir_GPIO_Port,Led_dir_Pin,GPIO_PIN_SET);
+	}else if(sensor[3].valor<sensor[3].valor_linha_branca){
+		valor_posicao=0.5;
+		HAL_GPIO_WritePin(Led_esq_GPIO_Port,Led_esq_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(Led_Frente_GPIO_Port,Led_Frente_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(Led_dir_GPIO_Port,Led_dir_Pin,GPIO_PIN_SET);
+	}else if(sensor[4].valor<sensor[4].valor_linha_branca){
+		valor_posicao=-0.5;
+		HAL_GPIO_WritePin(Led_esq_GPIO_Port,Led_esq_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(Led_Frente_GPIO_Port,Led_Frente_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(Led_dir_GPIO_Port,Led_dir_Pin,GPIO_PIN_SET);
+	}else if((sensor[3].valor<sensor[3].valor_linha_branca)&(sensor[2].valor<sensor[2].valor_linha_branca)){
+		valor_posicao=1;
+		HAL_GPIO_WritePin(Led_esq_GPIO_Port,Led_esq_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(Led_Frente_GPIO_Port,Led_Frente_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(Led_dir_GPIO_Port,Led_dir_Pin,GPIO_PIN_SET);
+	}else if((sensor[4].valor<sensor[4].valor_linha_branca)&(sensor[5].valor<sensor[5].valor_linha_branca)){
+		valor_posicao=-1;
+		HAL_GPIO_WritePin(Led_esq_GPIO_Port,Led_esq_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(Led_Frente_GPIO_Port,Led_Frente_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(Led_dir_GPIO_Port,Led_dir_Pin,GPIO_PIN_SET);
+	}else if(sensor[2].valor<sensor[2].valor_linha_branca){
+		valor_posicao=1.5;
+		HAL_GPIO_WritePin(Led_esq_GPIO_Port,Led_esq_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(Led_Frente_GPIO_Port,Led_Frente_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(Led_dir_GPIO_Port,Led_dir_Pin,GPIO_PIN_RESET);
+	}else if(sensor[5].valor<sensor[5].valor_linha_branca){
+		valor_posicao=-1.5;
+		HAL_GPIO_WritePin(Led_esq_GPIO_Port,Led_esq_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(Led_Frente_GPIO_Port,Led_Frente_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(Led_dir_GPIO_Port,Led_dir_Pin,GPIO_PIN_SET);
+	}else if((sensor[2].valor<sensor[2].valor_linha_branca)&(sensor[1].valor<sensor[1].valor_linha_branca)){
+		valor_posicao=2;
+		HAL_GPIO_WritePin(Led_esq_GPIO_Port,Led_esq_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(Led_Frente_GPIO_Port,Led_Frente_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(Led_dir_GPIO_Port,Led_dir_Pin,GPIO_PIN_SET);
+	}else if((sensor[5].valor<sensor[5].valor_linha_branca)&(sensor[6].valor<sensor[6].valor_linha_branca)){
+		valor_posicao=-2;
+		HAL_GPIO_WritePin(Led_esq_GPIO_Port,Led_esq_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(Led_Frente_GPIO_Port,Led_Frente_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(Led_dir_GPIO_Port,Led_dir_Pin,GPIO_PIN_SET);
+	}else if(sensor[1].valor<sensor[1].valor_linha_branca){
+		valor_posicao=2.5;
+		HAL_GPIO_WritePin(Led_esq_GPIO_Port,Led_esq_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(Led_Frente_GPIO_Port,Led_Frente_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(Led_dir_GPIO_Port,Led_dir_Pin,GPIO_PIN_RESET);
+	}else if(sensor[6].valor<sensor[6].valor_linha_branca){
+		valor_posicao=-2.5;
+		HAL_GPIO_WritePin(Led_esq_GPIO_Port,Led_esq_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(Led_Frente_GPIO_Port,Led_Frente_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(Led_dir_GPIO_Port,Led_dir_Pin,GPIO_PIN_SET);
+	}else if((sensor[1].valor<sensor[1].valor_linha_branca)&(sensor[0].valor<sensor[0].valor_linha_branca)){
+		valor_posicao=3;
+		HAL_GPIO_WritePin(Led_esq_GPIO_Port,Led_esq_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(Led_Frente_GPIO_Port,Led_Frente_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(Led_dir_GPIO_Port,Led_dir_Pin,GPIO_PIN_SET);
+	}else if((sensor[6].valor<sensor[6].valor_linha_branca)&(sensor[7].valor<sensor[7].valor_linha_branca)){
+		valor_posicao=-3;
+		HAL_GPIO_WritePin(Led_esq_GPIO_Port,Led_esq_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(Led_Frente_GPIO_Port,Led_Frente_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(Led_dir_GPIO_Port,Led_dir_Pin,GPIO_PIN_SET);
+	}
+	else if(sensor[0].valor<sensor[0].valor_linha_branca){
+		valor_posicao=3.5;
+		HAL_GPIO_WritePin(Led_esq_GPIO_Port,Led_esq_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(Led_Frente_GPIO_Port,Led_Frente_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(Led_dir_GPIO_Port,Led_dir_Pin,GPIO_PIN_SET);
+	}else if(sensor[7].valor<sensor[7].valor_linha_branca){
+		valor_posicao=-3.5;
+		HAL_GPIO_WritePin(Led_esq_GPIO_Port,Led_esq_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(Led_Frente_GPIO_Port,Led_Frente_Pin,GPIO_PIN_SET);
+		HAL_GPIO_WritePin(Led_dir_GPIO_Port,Led_dir_Pin,GPIO_PIN_SET);
+	}else if((sensor[0].valor>4050)&(sensor[1].valor>4050)&(sensor[2].valor>4050)&(sensor[3].valor>4050)&(sensor[4].valor>4050)&(sensor[5].valor>4050)&(sensor[6].valor>4050)&(sensor[7].valor>4050)){
+		motor1_freio();
+		motor2_freio();
+		velocidade_motor1(0);
+		velocidade_motor2(0);
+		power=0;
+		HAL_GPIO_WritePin(Led_esq_GPIO_Port,Led_esq_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(Led_Frente_GPIO_Port,Led_Frente_Pin,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(Led_dir_GPIO_Port,Led_dir_Pin,GPIO_PIN_RESET);
+	}*/
+	m = ((4*(sensor[7].valor-sensor[0].valor))+(3*(sensor[6].valor-sensor[1].valor))+(2*(sensor[5].valor-sensor[2].valor))+(1*(sensor[4].valor-sensor[3].valor)));
+	d = (sensor[0].valor+sensor[1].valor+sensor[2].valor+sensor[3].valor+sensor[4].valor+sensor[5].valor+sensor[6].valor+sensor[7].valor);
+valor_posicao = - m/d;
+}
+
+
+void PID(void){
+	P = Kp*valor_posicao;
+	D = Kd*(valor_posicao - valor_posicao_anterior);
+	I += (valor_posicao);
+	PID_valor= P+D+(Ki*I);
+}
+
